@@ -14,7 +14,8 @@ from simulator.scenario_generator import run_loop
 class Pipeline:
     def __init__(self):
         self.cam_id = "cam1"
-    
+
+        self.event_pid = 1   
         self.detector = MockDetector()
         self.tracker = Tracker()
         self.zone_manager = ZoneManager("config/zones.json")
@@ -50,12 +51,13 @@ class Pipeline:
 
         
             self.logger.log({
-                "pid": t["id"],
+                "pid": self.event_pid,
                 "gid": t["gid"],
                 "zone": zone,
                 "decision": decision,
                 "ppe": ppe_status
             })
+            self.event_pid += 1 
         
             # 9. Alert / display
             self.alerts.emit(gid, bbox, zone, risk_tag, missing)
