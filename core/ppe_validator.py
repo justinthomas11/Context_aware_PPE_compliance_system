@@ -1,9 +1,9 @@
 class PPEValidator:
     def __init__(self):
         self.zone_requirements = {
-            "office": [],
-            "storage": ["helmet", "goggles", "boots", "trousers"],
-            "factory": ["helmet", "vest", "goggles", "gloves", "boots"]
+            "Office (Safe Zone)": [],
+            "Storage/Production Walkways (Moderate-Risk zone)": ["helmet", "goggles", "boots", "trousers"],
+            "Machinery Area (High-Risk Zone)": ["helmet", "vest", "goggles", "gloves", "boots"]
         }
 
     def validate(self, track, zone):

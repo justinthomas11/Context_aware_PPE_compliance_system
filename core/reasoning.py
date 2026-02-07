@@ -5,16 +5,16 @@ class ReasoningEngine:
 
         # ✅ Zone-specific PPE requirements
         required = {
-            "office": [],
+            "Office (Safe-Zone)": [],
 
-            "storage": [
+            "Storage/Production Walkways (Moderate-risk zone)": [
                 "helmet",
                 "goggles",
                 "boots",
                 "trousers"
             ],
 
-            "factory": [
+            "Machinery area (High-risk zone)": [
                 "helmet",
                 "vest",
                 "goggles",
@@ -27,7 +27,7 @@ class ReasoningEngine:
         missing = [r for r in req if not ppe_state.get(r, False)]
 
         # ✅ Decision logic
-        if zone == "office":
+        if zone == "Office (Safe-Zone)":
             decision = "GREEN"
         elif missing:
             decision = "RED"
