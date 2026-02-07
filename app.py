@@ -65,4 +65,5 @@ class Pipeline:
 
 if __name__ == "__main__":
     pipeline = Pipeline()
-    run_loop(pipeline)
+    run_loop(pipeline, interval=5)
+

@@ -1,6 +1,6 @@
 import time
 
-def run_loop(pipeline, steps=20):
-    for _ in range(steps):
+def run_loop(pipeline, interval=5):
+    while True:
         pipeline.step()
-        time.sleep(0.5)
+        time.sleep(interval)
