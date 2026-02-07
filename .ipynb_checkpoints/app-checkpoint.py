@@ -39,28 +39,30 @@ class Pipeline:
         
             zone = self.zone_manager.assign_zone(bbox)
         
-            ppe_status = self.ppe.validate(t)
+            ppe_status, missing_ppe = self.ppe.validate(t, zone)
+
         
             self.temporal.update(gid, ppe_status, zone)
         
-            decision, missing = self.reasoner.decide(gid, zone, self.temporal)
+            decision, _ = self.reasoner.decide(gid, zone, self.temporal)
+
         
             risk_tag = self.risk.tag(decision)
         
-            self.alerts.emit(gid, bbox, zone, risk_tag, missing)
+            self.alerts.emit(gid, bbox, zone, risk_tag, missing_ppe)
 
         
             self.logger.log({
                 "pid": self.event_pid,
                 "gid": t["gid"],
                 "zone": zone,
-                "decision": decision,
+                "flag": decision,
                 "ppe": ppe_status
             })
             self.event_pid += 1 
         
             # 9. Alert / display
-            self.alerts.emit(gid, bbox, zone, risk_tag, missing)
+            self.alerts.emit(gid, bbox, zone, risk_tag, missing_ppe)
 
 
 if __name__ == "__main__":

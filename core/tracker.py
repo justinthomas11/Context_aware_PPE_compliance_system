@@ -13,6 +13,10 @@ class Tracker:
                 self.map[d["temp_id"]] = tid
                 self.next_id += 1
 
-            tracks.append({"id": tid, "bbox": d["bbox"]})
+            tracks.append({
+                "id": tid,
+                "bbox": d["bbox"],
+                "ppe": d.get("ppe", {})   # ✅ keep PPE
+            })
 
         return tracks

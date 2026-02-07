@@ -1,11 +1,19 @@
-import random
-
 class PPEValidator:
-    def validate(self, track):
-        return {
-            "helmet": random.random() > 0.4,
-            "vest": random.random() > 0.3,
-            "goggles": random.random() > 0.5,
-            "gloves": random.random() > 0.4,
-            "boots": random.random() > 0.2,
+    def __init__(self):
+        self.zone_requirements = {
+            "office": [],
+            "storage": ["helmet", "goggles", "boots", "trousers"],
+            "factory": ["helmet", "vest", "goggles", "gloves", "boots"]
         }
+
+    def validate(self, track, zone):
+        ppe_status = track.get("ppe", {})
+
+        required = self.zone_requirements.get(zone, [])
+        missing = []
+
+        for item in required:
+            if not ppe_status.get(item, False):
+                missing.append(item)
+
+        return ppe_status, missing
